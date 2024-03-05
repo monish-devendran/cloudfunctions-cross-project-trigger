@@ -1,5 +1,5 @@
 
-Here we are going to create a function in project cf-source and a trigger in cf-trigger
+Here we are going to create a function in project cf-source and a trigger project in cf-trigger
 
 
 Permissions for trigger:
