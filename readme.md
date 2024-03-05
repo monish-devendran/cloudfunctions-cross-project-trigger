@@ -34,6 +34,11 @@ create a topic ( projects/cf-triggers/topics/send-to-project-cf-source)
 gsutil notification create -t projects/cf-triggers/topics/send-to-project-cf-source -f json gs://cloudfunction-trigger/
 >Created notification config projects/_/buckets/cloudfunction-trigger/notificationConfigs/1
 
+create a subcription (projects/cf-triggers/subscriptions/trigger-subscription)
+set the push target at https://us-central1-cf-source-416306.cloudfunctions.net/FunctionA
+enable authentication and set it a service account that you added to project A (cf-triggers)
+
+
 Sending a file to project B (cf-triggers bucket)
 ❯ gsutil cp ./temp  gs://cloudfunction-trigger/
 Copying file://./temp [Content-Type=application/octet-stream]...
