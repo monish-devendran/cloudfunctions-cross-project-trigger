@@ -39,12 +39,23 @@ set the push target at https://us-central1-cf-source-416306.cloudfunctions.net/F
 enable authentication and set it a service account that you added to project A (cf-triggers)
 
 Make sure you provide a service account for that function alone, use 
+```
+❯ gcloud functions add-iam-policy-binding  function-b --region=us-central1 --member=serviceAccount:cf-functionb-trigger@cf-triggers.iam.gserviceaccount.com --role=roles/cloudfunctions.invoker
+WARNING: The role [roles/cloudfunctions.invoker] was successfully bound to member [serviceAccount:cf-functionb-trigger@cf-triggers.iam.gserviceaccount.com] but this does not grant the member permission to invoke 2nd gen function [function-b]. Instead, the role [roles/run.invoker] must be granted on the underlying Cloud Run service. This can be done by running the `gcloud functions add-invoker-policy-binding` command.
 
-gcloud beta functions add-iam-policy-binding YOUCLOUDFUNCTIONAME --member serviceAccount:NAME-OF-YOUR-SERVICE-ACCOUNT@project-name.iam.gserviceaccount.com
+Would you like to run this command and additionally grant [serviceAccount:cf-functionb-trigger@cf-triggers.iam.gserviceaccount.com] permission to invoke function [function-b] (Y/n)?  y
 
-gcloud functions add-iam-policy-binding
---member=serviceAccount:cf-functionb-trigger@cf-triggers.iam.gserviceaccount.com
-\ --role=roles/cloudfunctions.invoker function-b
+The role [roles/run.invoker] was successfully bound to the underlying Cloud Run service. You can view its IAM policy by running:
+gcloud run services get-iam-policy projects/cf-source-416306/locations/us-central1/services/function-b
+
+bindings:
+- members:
+  - serviceAccount:cf-functionb-trigger@cf-triggers.iam.gserviceaccount.com
+  role: roles/cloudfunctions.invoker
+etag: BwYTjpJjfmM=
+version: 1
+```
+
 
 
 Sending a file to project B (cf-triggers bucket)
