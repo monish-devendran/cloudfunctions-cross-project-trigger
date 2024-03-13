@@ -41,6 +41,8 @@ enable authentication and set it a service account that you added to project A (
 Make sure you provide a service account for that function alone, use 
 ```
 ❯ gcloud functions add-iam-policy-binding  function-b --region=us-central1 --member=serviceAccount:cf-functionb-trigger@cf-triggers.iam.gserviceaccount.com --role=roles/cloudfunctions.invoker
+
+
 WARNING: The role [roles/cloudfunctions.invoker] was successfully bound to member [serviceAccount:cf-functionb-trigger@cf-triggers.iam.gserviceaccount.com] but this does not grant the member permission to invoke 2nd gen function [function-b]. Instead, the role [roles/run.invoker] must be granted on the underlying Cloud Run service. This can be done by running the `gcloud functions add-invoker-policy-binding` command.
 
 Would you like to run this command and additionally grant [serviceAccount:cf-functionb-trigger@cf-triggers.iam.gserviceaccount.com] permission to invoke function [function-b] (Y/n)?  y
