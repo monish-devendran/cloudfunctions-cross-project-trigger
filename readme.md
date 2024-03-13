@@ -32,11 +32,19 @@ switch to Project B (cf-triggers)
 create a topic ( projects/cf-triggers/topics/send-to-project-cf-source)
 
 gsutil notification create -t projects/cf-triggers/topics/send-to-project-cf-source -f json gs://cloudfunction-trigger/
->Created notification config projects/_/buckets/cloudfunction-trigger/notificationConfigs/1
+>Created notif  ication config projects/_/buckets/cloudfunction-trigger/notificationConfigs/1
 
 create a subcription (projects/cf-triggers/subscriptions/trigger-subscription)
 set the push target at https://us-central1-cf-source-416306.cloudfunctions.net/FunctionA
 enable authentication and set it a service account that you added to project A (cf-triggers)
+
+Make sure you provide a service account for that function alone, use 
+
+gcloud beta functions add-iam-policy-binding YOUCLOUDFUNCTIONAME --member serviceAccount:NAME-OF-YOUR-SERVICE-ACCOUNT@project-name.iam.gserviceaccount.com
+
+gcloud functions add-iam-policy-binding
+--member=serviceAccount:cf-functionb-trigger@cf-triggers.iam.gserviceaccount.com
+\ --role=roles/cloudfunctions.invoker function-b
 
 
 Sending a file to project B (cf-triggers bucket)
@@ -49,3 +57,27 @@ Operation completed over 1 objects/16.0 B.
 Check logs in project A (cf-trigger):
 
 ![Logs](image.png)
+
+
+
+
+---
+
+
+❯ gcloud iam service-accounts add-iam-policy-binding svc-foo-cloudfunction@cf-triggers.iam.gserviceaccount.com --member user:monish.devendran@gmail.com --role roles/iam.serviceAccountUser
+Updated IAM policy for serviceAccount [svc-foo-cloudfunction@cf-triggers.iam.gserviceaccount.com].
+bindings:
+- members:
+  - serviceAccount:svc-foo-cloudfunction@cf-triggers.iam.gserviceaccount.com
+  - user:monish.devendran@gmail.com
+  role: roles/iam.serviceAccountUser
+etag: BwYTMRkOnOo=
+version: 1
+
+
+---
+
+
+
+cross project : servicAccount https://stackoverflow.com/questions/71340529/adding-cross-project-service-account-in-gcp-cloud-functions
+
